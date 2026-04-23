@@ -1,0 +1,10 @@
+{
+  "automationId": "treasury-core.reconciliation.default",
+  "trigger": "exception-record-opened",
+  "action": "treasury.reconciliation.run",
+  "queues": [
+    "unmatched-bank-transactions",
+    "payout-failure-review",
+    "forecast-variance-review"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "pluginId": "treasury-core",
+  "reports": [
+    "Cash Position Summary",
+    "Bank Reconciliation Overview",
+    "Treasury Forecast"
+  ],
+  "exceptionQueues": [
+    "unmatched-bank-transactions",
+    "payout-failure-review",
+    "forecast-variance-review"
+  ],
+  "operationalScenarios": [
+    "bank-import",
+    "payment-order-execution",
+    "cash-forecast-refresh"
+  ]
+}

@@ -1,0 +1,108 @@
+import {
+  createBusinessDomainStateStore,
+  createBusinessOrchestrationState,
+  createBusinessPluginService,
+  type BusinessAdvancePrimaryRecordInput,
+  type BusinessCreatePrimaryRecordInput,
+  type BusinessFailPendingDownstreamItemInput,
+  type BusinessReconcilePrimaryRecordInput,
+  type BusinessReplayDeadLetterInput,
+  type BusinessResolvePendingDownstreamItemInput
+} from "@platform/business-runtime";
+
+import { type ExceptionRecord, type PrimaryRecord, type SecondaryRecord } from "../model";
+
+export type CreatePrimaryRecordInput = BusinessCreatePrimaryRecordInput;
+export type AdvancePrimaryRecordInput = BusinessAdvancePrimaryRecordInput;
+export type ReconcilePrimaryRecordInput = BusinessReconcilePrimaryRecordInput;
+export type ResolvePendingDownstreamItemInput = BusinessResolvePendingDownstreamItemInput;
+export type FailPendingDownstreamItemInput = BusinessFailPendingDownstreamItemInput;
+export type ReplayDeadLetterInput = BusinessReplayDeadLetterInput;
+
+function seedState() {
+  return {
+    primaryRecords: [
+      {
+        id: "treasury-core:seed",
+        tenantId: "tenant-platform",
+        title: "Treasury Core Seed Record",
+        counterpartyId: "party:seed",
+        companyId: "company:primary",
+        branchId: "branch:head-office",
+        recordState: "active",
+        approvalState: "approved",
+        postingState: "unposted",
+        fulfillmentState: "none",
+        amountMinor: 125000,
+        currencyCode: "USD",
+        revisionNo: 1,
+        reasonCode: null,
+        effectiveAt: "2026-04-23T00:00:00.000Z",
+        correlationId: "treasury-core:seed",
+        processId: "treasury-lifecycle:seed",
+        upstreamRefs: [],
+        downstreamRefs: [],
+        updatedAt: "2026-04-23T00:00:00.000Z"
+      }
+    ] satisfies PrimaryRecord[],
+    secondaryRecords: [] satisfies SecondaryRecord[],
+    exceptionRecords: [] satisfies ExceptionRecord[],
+    orchestration: createBusinessOrchestrationState()
+  };
+}
+
+const store = createBusinessDomainStateStore({
+  pluginId: "treasury-core",
+  sqlite: {
+    primaryTable: "treasury_core_primary_records",
+    secondaryTable: "treasury_core_secondary_records",
+    exceptionTable: "treasury_core_exception_records",
+    dbFileName: "business-runtime.sqlite"
+  },
+  postgres: {
+    schemaName: "treasury_core"
+  },
+  seedStateFactory: seedState
+});
+
+const service = createBusinessPluginService({
+  pluginId: "treasury-core",
+  displayName: "Treasury Core",
+  primaryResourceId: "treasury.cash-position",
+  secondaryResourceId: "treasury.banking",
+  exceptionResourceId: "treasury.forecasts",
+  createEvent: "treasury.cash-position-captured.v1",
+  advanceEvent: "treasury.banking-published.v1",
+  reconcileEvent: "treasury.forecast-refreshed.v1",
+  projectionJobId: "treasury.projections.refresh",
+  reconciliationJobId: "treasury.reconciliation.run",
+  advanceActionLabel: "Publish Banking Instruction",
+  orchestrationTargets: {
+  "create": [],
+  "advance": [
+    "traceability.links.record"
+  ],
+  "reconcile": [
+    "accounting.payments.allocate",
+    "traceability.reconciliation.queue"
+  ]
+},
+  store
+});
+
+export const {
+  listPrimaryRecords,
+  listSecondaryRecords,
+  listExceptionRecords,
+  listPublishedMessages,
+  listPendingDownstreamItems,
+  listDeadLetters,
+  listProjectionRecords,
+  getBusinessOverview,
+  createPrimaryRecord,
+  advancePrimaryRecord,
+  reconcilePrimaryRecord,
+  resolvePendingDownstreamItem,
+  failPendingDownstreamItem,
+  replayDeadLetter
+} = service;

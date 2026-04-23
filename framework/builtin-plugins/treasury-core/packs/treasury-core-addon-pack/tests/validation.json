@@ -1,0 +1,24 @@
+{
+  "packageId": "treasury-core",
+  "packName": "treasury-core-addon-pack",
+  "expectedActions": [
+    "treasury.cash-position.capture",
+    "treasury.banking.publish",
+    "treasury.forecasts.refresh"
+  ],
+  "expectedResources": [
+    "treasury.cash-position",
+    "treasury.banking",
+    "treasury.forecasts"
+  ],
+  "expectedReports": [
+    "Cash Position Summary",
+    "Bank Reconciliation Overview",
+    "Treasury Forecast"
+  ],
+  "expectedExceptionQueues": [
+    "unmatched-bank-transactions",
+    "payout-failure-review",
+    "forecast-variance-review"
+  ]
+}

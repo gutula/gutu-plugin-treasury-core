@@ -1,0 +1,9 @@
+{
+  "workspace": "treasury",
+  "route": "/admin/business/treasury",
+  "pageTitle": "Treasury Control Room",
+  "defaultRecordState": "draft",
+  "defaultApprovalState": "pending",
+  "defaultPostingState": "unposted",
+  "defaultFulfillmentState": "none"
+}

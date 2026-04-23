@@ -1,0 +1,9 @@
+{
+  "workflowId": "treasury-lifecycle",
+  "actors": [
+    "treasurer",
+    "controller",
+    "approver"
+  ],
+  "description": "Capture cash posture, publish treasury instructions, reconcile, and close treasury work."
+}
