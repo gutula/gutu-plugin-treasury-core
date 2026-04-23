@@ -23,7 +23,6 @@ export default definePackage({
     "audit-core",
     "workflow-core",
     "accounting-core",
-    "payments-core",
     "traceability-core"
   ],
   "dependencyContracts": [
@@ -58,17 +57,54 @@ export default definePackage({
       "rationale": "Required for Treasury Core to keep its boundary governed and explicit."
     },
     {
-      "packageId": "payments-core",
+      "packageId": "traceability-core",
       "class": "required",
       "rationale": "Required for Treasury Core to keep its boundary governed and explicit."
     },
     {
-      "packageId": "traceability-core",
-      "class": "required",
-      "rationale": "Required for Treasury Core to keep its boundary governed and explicit."
+      "packageId": "payments-core",
+      "class": "optional",
+      "rationale": "Recommended with Treasury Core for smoother production adoption and operator experience."
+    },
+    {
+      "packageId": "e-invoicing-core",
+      "class": "capability-enhancing",
+      "rationale": "Improves Treasury Core with deeper downstream automation, visibility, or workflow coverage."
+    },
+    {
+      "packageId": "analytics-bi-core",
+      "class": "capability-enhancing",
+      "rationale": "Improves Treasury Core with deeper downstream automation, visibility, or workflow coverage."
+    },
+    {
+      "packageId": "business-portals-core",
+      "class": "integration-only",
+      "rationale": "Only needed when Treasury Core must exchange data or actions with adjacent or external surfaces."
     }
   ],
-  "optionalWith": [],
+  "recommendedPlugins": [
+    "payments-core"
+  ],
+  "capabilityEnhancingPlugins": [
+    "e-invoicing-core",
+    "analytics-bi-core"
+  ],
+  "integrationOnlyPlugins": [
+    "business-portals-core"
+  ],
+  "suggestedPacks": [
+    "localization-global-base",
+    "localization-india",
+    "localization-united-states",
+    "sector-financial-services-compliance"
+  ],
+  "standaloneSupported": true,
+  "installNotes": [
+    "Treasury should usually follow Accounting; payments connectivity is recommended when live payout or collection orchestration is needed."
+  ],
+  "optionalWith": [
+    "payments-core"
+  ],
   "conflictsWith": [],
   "providesCapabilities": [
     "treasury.cash-position",

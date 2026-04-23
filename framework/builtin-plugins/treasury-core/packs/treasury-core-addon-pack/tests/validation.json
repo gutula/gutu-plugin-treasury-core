@@ -1,6 +1,31 @@
 {
   "packageId": "treasury-core",
   "packName": "treasury-core-addon-pack",
+  "requiredPlugins": [
+    "auth-core",
+    "org-tenant-core",
+    "role-policy-core",
+    "audit-core",
+    "workflow-core",
+    "accounting-core",
+    "traceability-core"
+  ],
+  "recommendedPlugins": [
+    "payments-core"
+  ],
+  "capabilityEnhancingPlugins": [
+    "e-invoicing-core",
+    "analytics-bi-core"
+  ],
+  "integrationOnlyPlugins": [
+    "business-portals-core"
+  ],
+  "suggestedPacks": [
+    "localization-global-base",
+    "localization-india",
+    "localization-united-states",
+    "sector-financial-services-compliance"
+  ],
   "expectedActions": [
     "treasury.cash-position.capture",
     "treasury.banking.publish",

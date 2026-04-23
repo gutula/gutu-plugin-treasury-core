@@ -195,7 +195,7 @@ Forbidden shortcuts:
 
 ## Cross-package interactions
 
-- Direct dependencies: `auth-core`, `org-tenant-core`, `role-policy-core`, `audit-core`, `workflow-core`, `accounting-core`, `payments-core`, `traceability-core`
+- Direct dependencies: `auth-core`, `org-tenant-core`, `role-policy-core`, `audit-core`, `workflow-core`, `accounting-core`, `traceability-core`
 - Requested capabilities: `ui.register.admin`, `api.rest.mount`, `data.write.treasury`, `events.publish.treasury`
 - Integration model: Actions+Resources+Jobs+Workflows+UI
 - ERPNext doctypes used as parity references: `Bank`, `Bank Account`, `Bank Transaction`, `Bank Statement Import`, `Bank Reconciliation Tool`, `Payment Order`

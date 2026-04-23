@@ -36,7 +36,6 @@
     "@plugins/audit-core": "workspace:*",
     "@plugins/workflow-core": "workspace:*",
     "@plugins/accounting-core": "workspace:*",
-    "@plugins/payments-core": "workspace:*",
     "@plugins/traceability-core": "workspace:*"
   }
 }

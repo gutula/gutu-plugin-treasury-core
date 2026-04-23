@@ -60,12 +60,27 @@ This tier is justified because unit coverage exists, contract coverage exists, i
 | Package | `@plugins/treasury-core` |
 | Manifest ID | `treasury-core` |
 | Repo | [gutu-plugin-treasury-core](https://github.com/gutula/gutu-plugin-treasury-core) |
-| Depends On | `auth-core`, `org-tenant-core`, `role-policy-core`, `audit-core`, `workflow-core`, `accounting-core`, `payments-core`, `traceability-core` |
+| Depends On | `auth-core`, `org-tenant-core`, `role-policy-core`, `audit-core`, `workflow-core`, `accounting-core`, `traceability-core` |
+| Recommended Plugins | `payments-core` |
+| Capability Enhancing | `e-invoicing-core`, `analytics-bi-core` |
+| Integration Only | `business-portals-core` |
+| Suggested Packs | `localization-global-base`, `localization-india`, `localization-united-states`, `sector-financial-services-compliance` |
+| Standalone Supported | Yes |
 | Requested Capabilities | `ui.register.admin`, `api.rest.mount`, `data.write.treasury`, `events.publish.treasury` |
 | Provided Capabilities | `treasury.cash-position`, `treasury.banking`, `treasury.forecasts` |
 | Runtime | bun>=1.3.12 |
 | Database | postgres, sqlite |
 | Integration Model | Actions+Resources+Jobs+Workflows+UI |
+
+## Installation Guidance
+
+- Required plugins: `auth-core`, `org-tenant-core`, `role-policy-core`, `audit-core`, `workflow-core`, `accounting-core`, `traceability-core`
+- Recommended plugins: `payments-core`
+- Capability-enhancing plugins: `e-invoicing-core`, `analytics-bi-core`
+- Integration-only plugins: `business-portals-core`
+- Suggested packs: `localization-global-base`, `localization-india`, `localization-united-states`, `sector-financial-services-compliance`
+- Standalone supported: yes
+- Treasury should usually follow Accounting; payments connectivity is recommended when live payout or collection orchestration is needed.
 
 ## Capability Matrix
 

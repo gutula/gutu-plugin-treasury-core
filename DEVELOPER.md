@@ -53,7 +53,12 @@ Owns treasury-side cash posture, banking operations, and liquidity forecasting a
 
 | Field | Value |
 | --- | --- |
-| Depends On | `auth-core`, `org-tenant-core`, `role-policy-core`, `audit-core`, `workflow-core`, `accounting-core`, `payments-core`, `traceability-core` |
+| Depends On | `auth-core`, `org-tenant-core`, `role-policy-core`, `audit-core`, `workflow-core`, `accounting-core`, `traceability-core` |
+| Recommended Plugins | `payments-core` |
+| Capability Enhancing | `e-invoicing-core`, `analytics-bi-core` |
+| Integration Only | `business-portals-core` |
+| Suggested Packs | `localization-global-base`, `localization-india`, `localization-united-states`, `sector-financial-services-compliance` |
+| Standalone Supported | Yes |
 | Requested Capabilities | `ui.register.admin`, `api.rest.mount`, `data.write.treasury`, `events.publish.treasury` |
 | Provides Capabilities | `treasury.cash-position`, `treasury.banking`, `treasury.forecasts` |
 | Owns Data | `treasury.cash-position`, `treasury.banking`, `treasury.forecasts`, `treasury.reconciliation` |
