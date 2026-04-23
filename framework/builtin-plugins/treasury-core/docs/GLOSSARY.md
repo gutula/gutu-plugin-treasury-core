@@ -9,6 +9,10 @@
 | treasury.cash-position.capture | Capture Cash Position |
 | treasury.banking.publish | Publish Banking Instruction |
 | treasury.forecasts.refresh | Refresh Treasury Forecast |
+| treasury.cash-position.hold | Place Record On Hold |
+| treasury.cash-position.release | Release Record Hold |
+| treasury.cash-position.amend | Amend Record |
+| treasury.cash-position.reverse | Reverse Record |
 | treasury.projections.refresh | Job definition queued on `treasury-projections`. |
 | treasury.reconciliation.run | Job definition queued on `treasury-reconciliation`. |
 | treasury-lifecycle | Capture cash posture, publish treasury instructions, reconcile, and close treasury work. |

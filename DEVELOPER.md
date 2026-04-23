@@ -71,6 +71,10 @@ Owns treasury-side cash posture, banking operations, and liquidity forecasting a
 | Action | `treasury.cash-position.capture` | Permission: `treasury.cash-position.write` | Capture Cash Position<br>Idempotent<br>Audited |
 | Action | `treasury.banking.publish` | Permission: `treasury.banking.write` | Publish Banking Instruction<br>Non-idempotent<br>Audited |
 | Action | `treasury.forecasts.refresh` | Permission: `treasury.forecasts.write` | Refresh Treasury Forecast<br>Non-idempotent<br>Audited |
+| Action | `treasury.cash-position.hold` | Permission: `treasury.cash-position.write` | Place Record On Hold<br>Non-idempotent<br>Audited |
+| Action | `treasury.cash-position.release` | Permission: `treasury.cash-position.write` | Release Record Hold<br>Non-idempotent<br>Audited |
+| Action | `treasury.cash-position.amend` | Permission: `treasury.cash-position.write` | Amend Record<br>Non-idempotent<br>Audited |
+| Action | `treasury.cash-position.reverse` | Permission: `treasury.cash-position.write` | Reverse Record<br>Non-idempotent<br>Audited |
 | Resource | `treasury.cash-position` | Portal disabled | Cash and liquidity position records across accounts and entities.<br>Purpose: Own treasury-side cash posture without mutating ledger truth directly.<br>Admin auto-CRUD enabled<br>Fields: `title`, `recordState`, `approvalState`, `postingState`, `fulfillmentState`, `updatedAt` |
 | Resource | `treasury.banking` | Portal disabled | Banking relationship and treasury instruction records.<br>Purpose: Coordinate treasury operations as a distinct finance boundary.<br>Admin auto-CRUD enabled<br>Fields: `label`, `status`, `requestedAction`, `updatedAt` |
 | Resource | `treasury.forecasts` | Portal disabled | Cash forecast and liquidity planning projections.<br>Purpose: Expose treasury planning and reconciliation posture explicitly.<br>Admin auto-CRUD enabled<br>Fields: `severity`, `status`, `reasonCode`, `updatedAt` |
@@ -156,11 +160,11 @@ stateDiagram-v2
 ### 1. Host wiring
 
 ```ts
-import { manifest, createPrimaryRecordAction, BusinessPrimaryResource, jobDefinitions, workflowDefinitions, adminContributions, uiSurface } from "@plugins/treasury-core";
+import { manifest, captureCashPositionAction, BusinessPrimaryResource, jobDefinitions, workflowDefinitions, adminContributions, uiSurface } from "@plugins/treasury-core";
 
 export const pluginSurface = {
   manifest,
-  createPrimaryRecordAction,
+  captureCashPositionAction,
   BusinessPrimaryResource,
   jobDefinitions,
   workflowDefinitions,
@@ -174,10 +178,10 @@ Use this pattern when your host needs to register the plugin’s declared export
 ### 2. Action-first orchestration
 
 ```ts
-import { manifest, createPrimaryRecordAction } from "@plugins/treasury-core";
+import { manifest, captureCashPositionAction } from "@plugins/treasury-core";
 
 console.log("plugin", manifest.id);
-console.log("action", createPrimaryRecordAction.id);
+console.log("action", captureCashPositionAction.id);
 ```
 
 - Prefer action IDs as the stable integration boundary.
@@ -219,7 +223,7 @@ console.log("action", createPrimaryRecordAction.id);
 
 ### Current truth
 
-- Exports 3 governed actions: `treasury.cash-position.capture`, `treasury.banking.publish`, `treasury.forecasts.refresh`.
+- Exports 7 governed actions: `treasury.cash-position.capture`, `treasury.banking.publish`, `treasury.forecasts.refresh`, `treasury.cash-position.hold`, `treasury.cash-position.release`, `treasury.cash-position.amend`, `treasury.cash-position.reverse`.
 - Owns 3 resource contracts: `treasury.cash-position`, `treasury.banking`, `treasury.forecasts`.
 - Publishes 2 job definitions with explicit queue and retry policy metadata.
 - Publishes 1 workflow definition with state-machine descriptions and mandatory steps.
@@ -233,7 +237,7 @@ console.log("action", createPrimaryRecordAction.id);
 
 ### Current gaps
 
-- Repo-local documentation verification entrypoints were missing before this pass and need to stay green as the repo evolves.
+- No extra gaps were discovered beyond the plugin’s declared boundaries.
 
 ### Recommended next
 

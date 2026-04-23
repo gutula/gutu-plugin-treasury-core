@@ -91,7 +91,11 @@ export default definePackage({
   "publicCommands": [
     "treasury.cash-position.capture",
     "treasury.banking.publish",
-    "treasury.forecasts.refresh"
+    "treasury.forecasts.refresh",
+    "treasury.cash-position.hold",
+    "treasury.cash-position.release",
+    "treasury.cash-position.amend",
+    "treasury.cash-position.reverse"
   ],
   "publicQueries": [
     "treasury.cash-summary",

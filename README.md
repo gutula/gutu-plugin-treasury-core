@@ -26,7 +26,7 @@ Cash-position tracking, banking operations, liquidity forecasting, and treasury-
 
 Owns treasury-side cash posture, banking operations, and liquidity forecasting as a finance boundary distinct from ledger truth.
 
-- Exports 3 governed actions: `treasury.cash-position.capture`, `treasury.banking.publish`, `treasury.forecasts.refresh`.
+- Exports 7 governed actions: `treasury.cash-position.capture`, `treasury.banking.publish`, `treasury.forecasts.refresh`, `treasury.cash-position.hold`, `treasury.cash-position.release`, `treasury.cash-position.amend`, `treasury.cash-position.reverse`.
 - Owns 3 resource contracts: `treasury.cash-position`, `treasury.banking`, `treasury.forecasts`.
 - Publishes 2 job definitions with explicit queue and retry policy metadata.
 - Publishes 1 workflow definition with state-machine descriptions and mandatory steps.
@@ -71,7 +71,7 @@ This tier is justified because unit coverage exists, contract coverage exists, i
 
 | Surface | Count | Details |
 | --- | --- | --- |
-| Actions | 3 | `treasury.cash-position.capture`, `treasury.banking.publish`, `treasury.forecasts.refresh` |
+| Actions | 7 | `treasury.cash-position.capture`, `treasury.banking.publish`, `treasury.forecasts.refresh`, `treasury.cash-position.hold`, `treasury.cash-position.release`, `treasury.cash-position.amend`, `treasury.cash-position.reverse` |
 | Resources | 3 | `treasury.cash-position`, `treasury.banking`, `treasury.forecasts` |
 | Jobs | 2 | `treasury.projections.refresh`, `treasury.reconciliation.run` |
 | Workflows | 1 | `treasury-lifecycle` |
@@ -96,10 +96,10 @@ bun run docs:check
 ```
 
 ```ts
-import { manifest, createPrimaryRecordAction, BusinessPrimaryResource, jobDefinitions, workflowDefinitions, adminContributions, uiSurface } from "@plugins/treasury-core";
+import { manifest, captureCashPositionAction, BusinessPrimaryResource, jobDefinitions, workflowDefinitions, adminContributions, uiSurface } from "@plugins/treasury-core";
 
 console.log(manifest.id);
-console.log(createPrimaryRecordAction.id);
+console.log(captureCashPositionAction.id);
 console.log(BusinessPrimaryResource.id);
 ```
 
