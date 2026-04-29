@@ -14,6 +14,11 @@ export const hostPlugin: HostPlugin = {
   routes: [
     { mountPath: "/bank-reconciliation", router: bankReconRoutes }
   ],
+  resources: [
+    "treasury.account",
+    "treasury.snapshot",
+    "treasury.transfer",
+  ],
 };
 
 // Re-export the lib API so other plugins can `import` from
